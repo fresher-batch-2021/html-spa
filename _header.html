@@ -1,0 +1,74 @@
+<style>
+    .active {
+        background-color: cadetblue;
+    }
+</style>
+<nav class="navbar">
+    <a class="brand" href="home"> TaskApp</a>
+    <a class="nav-item" href="listtask"> Tasks</a>
+    <a class="nav-item" href="login"> Login</a>
+    <a class="nav-item" href="register"> Register</a>
+</nav>
+
+
+<script>
+    function navigateByUrl(path) {
+
+        //1. Load the page content 
+        $("#content").load(path + ".html");
+
+        //2. Append the path in url
+        window.location.hash = path;
+
+        addActiveClass(path);
+    }
+
+
+
+    function addActiveClass(pageName) {
+        document.querySelectorAll("a[href]").forEach(e => {
+            console.log(e);
+            const href = e.pathname.substr(1);
+            if (href == pageName) {
+                e.classList.add("active");
+            } else {
+                e.classList.remove("active");
+            }
+        })
+
+    }
+    let pageName = "login";
+    addActiveClass(pageName);
+
+
+
+
+
+    $("a[href]").click(function() {
+        //1. disable the default link clicking behaviour
+        event.preventDefault();
+        console.log(this);
+
+        //2. Get the page name from the path
+        const link = this.pathname.substr(1);
+        console.log("Link:", link);
+        alert(link);
+
+        //3. Navigate to the page
+        navigateByUrl(link);
+
+        //3. Load the page content 
+        //$("#content").load(link + ".html");
+
+        // const body = document.querySelector("body");
+        // let script = document.createElement("script");
+        // script.setAttribute("src", link + ".js");
+        // body.appendChild(script);
+
+        //4. Append the pagename as #
+        //window.location.hash = link;
+
+
+        //alert(link);
+    });
+</script>
